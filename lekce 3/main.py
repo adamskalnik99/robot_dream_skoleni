@@ -11,8 +11,8 @@ data["colors"] = sample_colorscale("Reds", np.linspace(0.3, 1, len(data)))
 app = Dash(__name__)
 
 app.layout = html.Div([
-    html.H2('3D Scatter Plot'),
-    html.Label("Select index range"),
+    html.H2('3D Scatter Plot of Cartesian and Joint Coordinates', style={'textAlign': 'center'}),
+    html.Label("Select index range", style={"font-weight": "bold", "margin-top": "20px"}),
     dcc.RangeSlider(
         id="row-range-slider",
         min=0,
@@ -43,6 +43,7 @@ ax_style = dict(
 def update_graph(row_range):
     row_min, row_max = row_range
     filtered = data.iloc[row_min:row_max + 1]
+    indices = filtered.index.astype(str)
     fig = make_subplots(
         rows=1, cols=2,
         specs=[[{'type': 'scene'}, {'type': 'scene'}]],
@@ -55,7 +56,9 @@ def update_graph(row_range):
             y=filtered["y"],
             z=filtered["z"],
             mode="markers",
-            marker=dict(size=2, color=data["colors"])
+            marker=dict(size=2, color=data["colors"]),
+            text=indices,
+            hovertemplate="Index: %{text}<br>x: %{x}<br>y: %{y}<br>z: %{z}<extra></extra>"
         ),
         row=1, col=1
     )
@@ -65,7 +68,9 @@ def update_graph(row_range):
             y=filtered["qy"],
             z=filtered["qz"],
             mode="markers",
-            marker=dict(size=2, color=data["colors"])
+            marker=dict(size=2, color=data["colors"]),
+            text=indices,
+            hovertemplate="Index: %{text}<br>x: %{x}<br>y: %{y}<br>z: %{z}<extra></extra>"
         ),
         row=1, col=2
     )
