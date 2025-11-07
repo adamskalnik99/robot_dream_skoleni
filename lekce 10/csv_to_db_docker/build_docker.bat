@@ -1,0 +1,1 @@
+docker build -t csv_to_db .

@@ -1,2 +1,1 @@
-
-docker run --rm -v C:/Python_Projects/APM_pos_results/robot dream skoleni/lekce 10/data:/app/data --name "hw-csv-to-db" csv_to_db:latest
+docker run --rm --network mynetwork --name hw_csv_to_db --mount type=bind,src="C:\Python_Projects\robot_dream_skoleni\lekce 10\data",dst=/app/data csv_to_db:latest

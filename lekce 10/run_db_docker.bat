@@ -1,1 +1,1 @@
-docker run --rm -p 27017:27017 --name "hw-mongo" mongo:latest
+docker run --rm --network mynetwork -p 27017:27017 --name mongo mongo:latest
